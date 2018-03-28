@@ -15,14 +15,14 @@
 	digi,machine,name = "ccimx6ulstarter";
 };
 
-/* ECSPI3 (Raspberry PI Expansion header) */
+/* ECSPI3 (Raspberry PI Expansion header) 
 &ecspi3 {
 	fsl,spi-num-chipselects = <1>;
 	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_ecspi3_master>;
 	status = "disabled";
-};
+};*/
 
 &fec1 {
 	pinctrl-names = "default";
@@ -47,8 +47,7 @@
 };
 
 /* CAN1 (Raspberry PI Expansion header) */
-&can1 {
-	pinctrl-names = "default";
+/*	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexcan1>;
 	xceiver-supply = <&ext_3v3>;
 	status = "disabled";
@@ -92,10 +91,20 @@
 
 &pwm8 {
 	status = "disabled";
-};
+};*/
 
+//UART 2 RS485
+&uart2 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&pinctrl_uart2>;
+    status = "disabled";
+    rs485-rts-active-high;
+    rs485-rx-during-tx;
+    rs485-rts-delay = <1 1>;
+    linux,rs485-enabled-at-boot-time;
+};
 /* UART4 (Raspberry PI Expansion header) */
-&uart4 {
+/*&uart4 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart4>;
 	status = "disabled";
@@ -108,7 +117,7 @@
 	status = "disabled";
 };
 
-&usbotg1 {
+/*&usbotg1 {
 	dr_mode = "host";
 	digi,power-line-active-high;
 	disable-over-current;
@@ -133,15 +142,15 @@
 
 &iomuxc {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_hog>;
+	/*pinctrl-0 = <&pinctrl_hog>;*/
 
 	imx6ul-ccimx6ul {
-		pinctrl_ecspi3_master: ecspi3grp1 {
+		/*pinctrl_ecspi3_master: ecspi3grp1 {
 			fsl,pins = <
 				MX6UL_PAD_UART2_RX_DATA__ECSPI3_SCLK	0x10b0
 				MX6UL_PAD_UART2_CTS_B__ECSPI3_MOSI	0x10b0
 				MX6UL_PAD_UART2_RTS_B__ECSPI3_MISO	0x10b0
-				MX6UL_PAD_UART2_TX_DATA__GPIO1_IO20	0x10b0 /* Chip Select */
+				MX6UL_PAD_UART2_TX_DATA__GPIO1_IO20	0x10b0 /* Chip Select 
 			>;
 		};
 
@@ -150,9 +159,9 @@
 				MX6UL_PAD_UART2_RX_DATA__ECSPI3_SCLK	0x10b0
 				MX6UL_PAD_UART2_CTS_B__ECSPI3_MOSI	0x10b0
 				MX6UL_PAD_UART2_RTS_B__ECSPI3_MISO	0x10b0
-				MX6UL_PAD_UART2_TX_DATA__ECSPI3_SS0	0x10b0 /* Chip Select */
+				MX6UL_PAD_UART2_TX_DATA__ECSPI3_SS0	0x10b0 /* Chip Select 
 			>;
-		};
+		};*/
 
 		pinctrl_enet1: enet1grp {
 			fsl,pins = <
@@ -169,14 +178,14 @@
 			>;
 		};
 
-		pinctrl_flexcan1: flexcan1grp{
+		/*pinctrl_flexcan1: flexcan1grp{
 			fsl,pins = <
 				MX6UL_PAD_LCD_DATA08__FLEXCAN1_TX	0x1b020
 				MX6UL_PAD_LCD_DATA09__FLEXCAN1_RX	0x1b020
 			>;
-		};
+		}; NON UTILISÉ*/*
 
-		pinctrl_i2c2: i2c2grp {
+	/*	pinctrl_i2c2: i2c2grp {
 			fsl,pins = <
 				MX6UL_PAD_GPIO1_IO00__I2C2_SCL 0x4001b8b0
 				MX6UL_PAD_GPIO1_IO01__I2C2_SDA 0x4001b8b0
@@ -189,12 +198,23 @@
 			>;
 		};
 
-		pinctrl_uart4: uart4grp {
+		/*pinctrl_uart4: uart4grp {
 			fsl,pins = <
 				MX6UL_PAD_LCD_CLK__UART4_DCE_TX		0x1b0b1
 				MX6UL_PAD_LCD_ENABLE__UART4_DCE_RX	0x1b0b1
 			>;
+		};*/
+
+	pinctrl_uart2: uart2grp {
+			fsl,pins = <
+				MX6UL_PAD_UART2_TX_DATA__UART2_DCE_TX	0x10b0 //signal cf imx6ul-pinfunc.h ; need ajouter RTS
+
+				MX6UL_PAD_UART2_RX_DATA__UART2_DCE_RX	0x10b0
+
+				MX6UL_PAD_UART2_RTS_B__UART2_DCE_RTS	0x10b0 // config cf utilisation du pad UART2_RTS_B plus haut
+			>;
 		};
+
 
 		pinctrl_uart5: uart5grp {
 			fsl,pins = <
@@ -214,13 +234,13 @@
 			>;
 		};
 
-		/* General purpose pinctrl */
+		/* General purpose pinctrl 
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
-				/* GPIOs BANK 3 */
+				/* GPIOs BANK 3 
 				MX6UL_PAD_LCD_RESET__GPIO3_IO04		0xf030
 			>;
-		};
+		};*/
 
 	};
 };
