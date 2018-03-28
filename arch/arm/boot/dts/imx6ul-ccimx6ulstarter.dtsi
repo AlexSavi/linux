@@ -142,7 +142,7 @@
 
 &iomuxc {
 	pinctrl-names = "default";
-	/*pinctrl-0 = <&pinctrl_hog>;*/
+	pinctrl-0 = <&pinctrl_hog>;
 
 	imx6ul-ccimx6ul {
 		/*pinctrl_ecspi3_master: ecspi3grp1 {
@@ -234,13 +234,13 @@
 			>;
 		};
 
-		/* General purpose pinctrl 
+		/* General purpose pinctrl */
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
-				/* GPIOs BANK 3 
+				/* GPIOs BANK 3 */
 				MX6UL_PAD_LCD_RESET__GPIO3_IO04		0xf030
 			>;
-		};*/
+		};
 
 	};
 };
